@@ -7,7 +7,7 @@
 ## 資料
 |img.jpg|mask.jpg|new_card.jpg|
 |:-:|:-:|:-:|
-|![](https://i.imgur.com/qAMqcvK.jpg =70%x)|![](https://i.imgur.com/0eCn9mk.jpg =70%x)|![](https://i.imgur.com/7WRjyHY.jpg)|
+|<img src="https://i.imgur.com/qAMqcvK.jpg" width="40%"/>|<img src="https://i.imgur.com/0eCn9mk.jpg" width="40%"/>|![](https://i.imgur.com/7WRjyHY.jpg)|
 
 ## 流程
 > 1. 得到mask四個角的座標
@@ -21,7 +21,7 @@
 
 對mask做邊緣偵測
 
-![](https://i.imgur.com/K94f2jH.png =35%x)
+<img src="https://i.imgur.com/K94f2jH.png" width="25%"/>
 
 #### 輪廓偵測 - Contour
 - 對邊緣偵測過的圖做輪廓偵測
@@ -33,7 +33,7 @@
 
 |四個點|繪製出輪廓和四點|
 |:-:|:-:|
-|![](https://i.imgur.com/DwcvN8f.png)|![](https://i.imgur.com/R9g8Ar6.png =50%x)|![](https://i.imgur.com/dAkvRan.png)
+|![](https://i.imgur.com/DwcvN8f.png)|<img src="https://i.imgur.com/R9g8Ar6.png" width="25%"/>|![](https://i.imgur.com/dAkvRan.png)
 
 
 ### 2. 透視轉換
@@ -60,10 +60,7 @@ warp_dst = cv2.warpPerspective(
 ```
 
 轉換後的圖片
-![](https://i.imgur.com/Bb1evM4.png =35%x)
-
-
-
+<img src="https://i.imgur.com/Bb1evM4.png" width="25%"/>
 
 ### 3. 挖出img中的卡片
 
@@ -71,19 +68,19 @@ warp_dst = cv2.warpPerspective(
 
 直接減去255``mask_blackObj = 255 - mask``
 
-![](https://i.imgur.com/rkXfqNb.png =35%x)
+<img src="https://i.imgur.com/rkXfqNb.png" width="25%"/>
 
 #### img疊加mask
 
 使用``cv2.bitwise_and``疊加剛剛黑白轉換的mask
 
-![](https://i.imgur.com/4tsnYWV.jpg =35%x)
+<img src="https://i.imgur.com/4tsnYWV.jpg" width="25%"/>
 
 ### 4. 貼上經過透視轉換的new_card於img上
 
 使用``cv2.add``去合併
 
-![](https://i.imgur.com/IMpt0St.jpg =35%x)
+<img src="https://i.imgur.com/IMpt0St.jpg" width="25%"/>
 
 ## Improvement
 
@@ -99,14 +96,16 @@ mask_grey = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
 
 只用灰階後的mask去contour，會有noise，爛爛的
 導致輪廓偵測的四個點還比第一次做的更不準
-![](https://i.imgur.com/5ultbyp.png =35%x)
+
+<img src="https://i.imgur.com/5ultbyp.png" width="25%"/>
 
 再用threshold binary
 ```python
 ret, thre = cv2.threshold(mask_grey, 127, 255, cv2.THRESH_BINARY)
 ```
 就會平平滑滑了
-![](https://i.imgur.com/PtdJVB1.png =35%x)
+
+<img src="https://i.imgur.com/PtdJVB1.png" width="25%"/>
 
 ### 不要minAreaRect()
 
@@ -121,13 +120,14 @@ minAreaRect 他只會算出==矩形==的中心和角度，多邊形的他沒辦�
 #### Solution
 
 改用``cv2.approxPolyDP``去找多邊形的頂點
-![](https://i.imgur.com/TllmHw4.png =35%x)
+
+<img src="https://i.imgur.com/TllmHw4.png" width="25%"/>
 
 但用這個座標是三維的，shape要改成(2,4)，還有數值的型態要轉換成float32
 
 #### Result
 
-![](https://i.imgur.com/sm7UqiO.jpg =35%x)
+<img src="https://i.imgur.com/sm7UqiO.jpg" width="25%"/>
 
 
 ---
